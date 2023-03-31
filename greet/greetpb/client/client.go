@@ -9,18 +9,6 @@ import (
 	"google.golang.org/grpc"
 )
 
-func main() {
-	cc, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
-	if err != nil {
-		log.Fatalf("cannot dial grpc server")
-	}
-
-	defer cc.Close()
-
-	c := greetpb.NewGreetServiceClient(cc)
-	DoUnary(c)
-}
-
 func DoUnary(c greetpb.GreetServiceClient) {
 	req := &greetpb.GreetRequest{
 		Greeting: &greetpb.Greeting{
@@ -35,4 +23,16 @@ func DoUnary(c greetpb.GreetServiceClient) {
 	}
 	log.Printf("repsonse from the server %v", resp.Result)
 
+}
+
+func main() {
+	cc, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
+	if err != nil {
+		log.Fatalf("cannot dial grpc server")
+	}
+
+	defer cc.Close()
+
+	c := greetpb.NewGreetServiceClient(cc)
+	DoUnary(c)
 }
