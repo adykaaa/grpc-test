@@ -24,10 +24,12 @@ func DoUnary(c greetpb.GreetServiceClient) {
 	resp, err := c.Greet(context.Background(), req)
 	if err != nil {
 		err, ok := status.FromError(err)
-		if ok  {
+		if ok {
 			if err.Code() == codes.InvalidArgument {
-				log.Fatal("Cannot providte an empty FirstName")
+				fmt.Print("Cannot provide an empty FirstName!")
 			}
+			log.Fatalf("fatal erro")
+		}
 	}
 	log.Printf("repsonse from the server %v", resp.Result)
 }
