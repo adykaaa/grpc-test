@@ -1,4 +1,4 @@
-package main
+package greetpb
 
 import (
 	"context"
@@ -7,7 +7,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/adykaaa/grpc-test/greet/greetpb"
+	"github.com/adykaaa/grpc-test/greetpb"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
