@@ -11,6 +11,8 @@ import (
 
 	"github.com/adykaaa/grpc-test/greet/greetpb"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type server struct {
@@ -20,6 +22,9 @@ type server struct {
 // unary
 func (*server) Greet(ctx context.Context, req *greetpb.GreetRequest) (*greetpb.GreetResponse, error) {
 	fmt.Printf("greet function was invoked with %v \n", req)
+	if len(req.Greeting.FirstName) == 0 {
+		return nil, status.Errorf(codes.InvalidArgument, "The FirstName cannot be empty!")
+	}
 	return &greetpb.GreetResponse{Result: "Hello " + req.Greeting.FirstName + req.Greeting.LastName}, nil
 }
 

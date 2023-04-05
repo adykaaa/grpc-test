@@ -9,6 +9,8 @@ import (
 
 	"github.com/adykaaa/grpc-test/greet/greetpb"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 func DoUnary(c greetpb.GreetServiceClient) {
@@ -21,7 +23,11 @@ func DoUnary(c greetpb.GreetServiceClient) {
 
 	resp, err := c.Greet(context.Background(), req)
 	if err != nil {
-		fmt.Printf("Could not send the request!")
+		err, ok := status.FromError(err)
+		if ok  {
+			if err.Code() == codes.InvalidArgument {
+				log.Fatal("Cannot providte an empty FirstName")
+			}
 	}
 	log.Printf("repsonse from the server %v", resp.Result)
 }
