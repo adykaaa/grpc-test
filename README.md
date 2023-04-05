@@ -1,0 +1,1 @@
+A really simple "Greet" API using gRPC. I mostly used this for testing out evans CLI.
