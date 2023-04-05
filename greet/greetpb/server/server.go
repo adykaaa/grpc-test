@@ -12,6 +12,7 @@ import (
 	"github.com/adykaaa/grpc-test/greet/greetpb"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/reflection"
 	"google.golang.org/grpc/status"
 )
 
@@ -103,6 +104,7 @@ func main() {
 	log.Print("Server is listening! \n")
 
 	s := grpc.NewServer()
+	reflection.Register(s)
 	greetpb.RegisterGreetServiceServer(s, &server{})
 
 	if err := s.Serve(lis); err != nil {
